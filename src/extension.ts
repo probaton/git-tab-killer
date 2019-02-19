@@ -5,22 +5,19 @@ import * as vscode from 'vscode';
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand("extension.killGitTabs", () => {
         console.log(">>>> Que?");
-        let firstNonGitEditorUri: vscode.Uri | undefined = undefined;
+        let firstNonGitUri: vscode.Uri | "nyi" = "nyi";
         let editor = vscode.window.activeTextEditor;
-        let editorUri = editor ? editor.document.uri : undefined;
-        console.log(">>>> editor", editor);
-        console.log(">>>> editorUri", editorUri);
-        console.log(editorUri != firstNonGitEditorUri)
-        while (editorUri != firstNonGitEditorUri) {
+        let uri = editor ? editor.document.uri : undefined;
+        while (uri !== firstNonGitUri) {
+            firstNonGitUri = (firstNonGitUri === "nyi") && uri && (uri.scheme !== "git") ? uri : "nyi";
             vscode.commands.executeCommand("workbench.action.nextEditor");
             editor = vscode.window.activeTextEditor;
-            editorUri = editor ? editor.document.uri : editorUri;
-            if (editorUri && editorUri.scheme == "git") {
+            uri = editor ? editor.document.uri : undefined;
+            if (uri && (uri.scheme === "git")) {
                 vscode.commands.executeCommand("workbench.action.closeActiveEditor");
-            } else {
-                if (!firstNonGitEditorUri) firstNonGitEditorUri = editorUri;
             }
-        };
+            console.log(">>>> editorUris", uri, firstNonGitUri);
+        }
 	});
 
 	context.subscriptions.push(disposable);
