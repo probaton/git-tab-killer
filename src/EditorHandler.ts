@@ -10,18 +10,22 @@ export class EditorHandler extends Disposable {
     }
 
     async awaitEditor(): Promise<TextEditor> {
-        return new Promise<TextEditor>(resolve => {
+        const editor = await new Promise<TextEditor>(resolve => {
             let timer: NodeJS.Timer;
     
             this.resolver = (e => {
-                clearTimeout(timer);
-                resolve(e);
+                if (e) { 
+                    clearTimeout(timer);
+                    resolve(e); 
+                }
             });
     
             timer = setTimeout(() => {
                 throw new Error("Editor took too long to load");
             }, 500);
         });
+        this.resolver = undefined;
+        return editor;
     }
 
     nextEditor(): Promise<TextEditor> {
@@ -29,8 +33,8 @@ export class EditorHandler extends Disposable {
         return this.awaitEditor();
     }
 
-     closeEditor(): Promise<TextEditor> {
-        commands.executeCommand("workbench.action.closeActiveEditor");
-        return this.awaitEditor();
-    }
+    closeEditor(): Promise<TextEditor> {
+       commands.executeCommand("workbench.action.closeActiveEditor");
+       return this.awaitEditor();
+   }
 }

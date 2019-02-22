@@ -15,7 +15,7 @@ export class GoAgainer {
 
     private setPrime(): void {
         this.prime = this.isGitEditor ? undefined : this.current;
-        this.report("prime");
+        console.log(">>>>> prime", this.prime ? this.prime.document.fileName : undefined, this.previousUndefined, this.isGitEditor);
     }
 
     get isGitEditor(): boolean {
@@ -46,6 +46,6 @@ export class GoAgainer {
     }
 
     report(type: string) {
-        console.log(">>>>>", type, this.current ? this.current.document.fileName : undefined, this.previousUndefined);
+        console.log(">>>>>", type, this.current ? this.current.document.fileName : undefined, this.previousUndefined, this.isGitEditor);
     }
 }
