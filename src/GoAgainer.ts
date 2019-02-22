@@ -1,16 +1,20 @@
 import { TextEditor } from "vscode";
 
 export class GoAgainer {
-    current: TextEditor | undefined;
-    prime: TextEditor | undefined;
+    current: VSCEditor;
+    prime: VSCEditor;
     previousUndefined: boolean;
     goAgain: boolean;
 
     constructor(currentEditor: TextEditor | undefined) {
-        this.current = currentEditor;
+        this.setCurrent(currentEditor);
         this.setPrime();
         this.previousUndefined = Boolean(!this.current);
         this.goAgain = true;
+    }
+
+    setCurrent(editor: TextEditor | undefined): void {
+        this.current = editor ? { id: (editor as any)._id, scheme: editor.document.uri.scheme } : undefined;
     }
 
     private setPrime(): void {
@@ -18,14 +22,14 @@ export class GoAgainer {
     }
 
     get isGitEditor(): boolean {
-        return Boolean(this.current && this.current.document.uri.scheme === "git");
+        return Boolean(this.current && this.current.scheme === "git");
     }
 
     handleNext(nextEditor: TextEditor | undefined): void {
-        this.current = nextEditor;
+        this.setCurrent(nextEditor);
         if (this.current) {
             if (this.prime) {
-                this.goAgain = !(this.current.document.fileName === this.prime.document.fileName);
+                this.goAgain = !(this.current.id === this.prime.id);
             } else {
                 this.setPrime();
             }
@@ -37,8 +41,10 @@ export class GoAgainer {
     }
 
     handleClose(editor: TextEditor | undefined): void {
-        this.current = editor;
+        this.setCurrent(editor);
         this.previousUndefined = false;
         this.goAgain = true;
     }
 }
+
+type VSCEditor = { id: string, scheme: string } | undefined;
