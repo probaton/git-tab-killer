@@ -21,9 +21,10 @@ export class EditorHandler extends Disposable {
             });
     
             timer = setTimeout(() => {
-                throw new Error("Editor took too long to load");
-            }, 500);
+                resolve(undefined);
+            }, 200);
         });
+
         this.resolver = undefined;
         return editor;
     }

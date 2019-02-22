@@ -15,7 +15,6 @@ export class GoAgainer {
 
     private setPrime(): void {
         this.prime = this.isGitEditor ? undefined : this.current;
-        console.log(">>>>> prime", this.prime ? this.prime.document.fileName : undefined, this.previousUndefined, this.isGitEditor);
     }
 
     get isGitEditor(): boolean {
@@ -35,17 +34,11 @@ export class GoAgainer {
             this.goAgain = !this.previousUndefined;
             this.previousUndefined = true;
         }
-        this.report("next");
     }
 
     handleClose(editor: TextEditor | undefined): void {
         this.current = editor;
-        this.goAgain = true;
         this.previousUndefined = false;
-        this.report("close");
-    }
-
-    report(type: string) {
-        console.log(">>>>>", type, this.current ? this.current.document.fileName : undefined, this.previousUndefined, this.isGitEditor);
+        this.goAgain = true;
     }
 }

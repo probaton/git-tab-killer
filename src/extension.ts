@@ -4,8 +4,6 @@ import { GoAgainer } from "./GoAgainer";
 
 export function activate(context: ExtensionContext) {
     const killTabs = async function marp() {
-        console.log(">>>> Que?");
-        
         const handler = new EditorHandler();
         const tracker = new GoAgainer(window.activeTextEditor);
 
