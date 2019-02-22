@@ -1,19 +1,5 @@
-# git-tab-killer README
+# git-tab-killer 
 
-This is the README for your extension "git-tab-killer". After writing up a brief description, we recommend including the following sections.
+Closes all open Git working tree and index tabs. Simply `extension.killGitTabs` to your favorite shortcut and you're good to go. 
 
-## Features
-
-Map to a keyboard shortcut for an easy way to kill all your open (Index) and (Working copy) tabs in one fell swoop. 
-
-## Requirements
-
-None. 
-
-## Extension Settings
-
-None. The command should be mapped to a key in your `keybindings.json`. 
-
-## Known Issues
-
-None. 
+Unfortunately, the VS Code API does not provide a list of open editors, so the only way to identify Git tabs is to cycle through all open editors and eliminate Git tabs one by one. Expect a whole bunch of screen flickering. 
