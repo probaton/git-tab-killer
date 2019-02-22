@@ -1,4 +1,4 @@
-import { TextEditor } from "vscode";
+import { window, TextEditor } from "vscode";
 
 export class GoAgainer {
     current: VSCEditor;
@@ -14,7 +14,8 @@ export class GoAgainer {
     }
 
     setCurrent(editor: TextEditor | undefined): void {
-        this.current = editor ? { id: (editor as any)._id, scheme: editor.document.uri.scheme } : undefined;
+        const externals = window.visibleTextEditors.map(editor => editor.document.uri.toJSON()["external"]);
+        this.current = editor ? { id: (editor as any)._id, scheme: editor.document.uri.scheme, externals: externals } : undefined;
     }
 
     private setPrime(): void {
@@ -22,7 +23,9 @@ export class GoAgainer {
     }
 
     get isGitEditor(): boolean {
-        return Boolean(this.current && this.current.scheme === "git");
+        if (!this.current) { return false; }
+        const isGitDiff = this.current.externals.some(external => external.startsWith("git"));
+        return isGitDiff || (this.current.scheme === "git");
     }
 
     handleNext(nextEditor: TextEditor | undefined): void {
@@ -47,4 +50,4 @@ export class GoAgainer {
     }
 }
 
-type VSCEditor = { id: string, scheme: string } | undefined;
+type VSCEditor = { id: string, scheme: string, externals: string[]} | undefined;

@@ -14,7 +14,7 @@ export class EditorHandler extends Disposable {
             let timer: NodeJS.Timer;
     
             this.resolver = (e => {
-                if (e) { 
+                if (e) {
                     clearTimeout(timer);
                     resolve(e); 
                 }
