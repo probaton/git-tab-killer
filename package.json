@@ -2,7 +2,9 @@
 	"name": "git-tab-killer",
 	"displayName": "git-tab-killer",
 	"description": "",
-	"version": "0.0.1",
+    "version": "1.0.1",
+    "publisher": "Dexx",
+    "repository": "git@github.com:probaton/git-tab-killer.git",
 	"engines": {
 		"vscode": "^1.31.0"
 	},
@@ -10,16 +12,11 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.HelloWorld",
 		"onCommand:extension.killGitTabs"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
-            {
-			    "command": "extension.helloWorld",
-			    "title": "Hello World"
-            },
             {
                 "command": "extension.killGitTabs",
                 "title": "Kill the thing"
