@@ -2,9 +2,9 @@
 	"name": "git-tab-killer",
 	"displayName": "git-tab-killer",
 	"description": "",
-    "version": "1.0.1",
-    "publisher": "Dexx",
-    "repository": "git@github.com:probaton/git-tab-killer.git",
+	"version": "1.0.1",
+	"publisher": "Dexx",
+	"repository": "git@github.com:probaton/git-tab-killer.git",
 	"engines": {
 		"vscode": "^1.31.0"
 	},
@@ -17,11 +17,11 @@
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
-            {
-                "command": "extension.killGitTabs",
-                "title": "Kill the thing"
-            }
-        ]
+			{
+				"command": "extension.killGitTabs",
+				"title": "Kill the thing"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
@@ -31,10 +31,13 @@
 		"test": "yarn run compile && node ./node_modules/vscode/bin/test"
 	},
 	"devDependencies": {
-		"typescript": "^3.3.1",
-		"vscode": "^1.1.28",
-		"tslint": "^5.12.1",
+		"@types/mocha": "^2.2.42",
 		"@types/node": "^10.12.21",
-		"@types/mocha": "^2.2.42"
+		"tslint": "^5.12.1",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28"
+	},
+	"dependencies": {
+		"js-yaml": "3.13.1"
 	}
 }
